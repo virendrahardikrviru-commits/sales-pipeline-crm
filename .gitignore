@@ -24,3 +24,16 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Cursor internal files (never commit these)
+.cursor/
+.agents/
+skills-lock.json
+.neon
+
+# Next.js
+web/.next/
+web/next-env.d.ts
+
+# OS junk
+*.TXT

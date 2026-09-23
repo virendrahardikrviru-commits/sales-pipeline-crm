@@ -1,0 +1,26 @@
+---
+pid: 5004
+cwd: "C:\\Projects\\listingcore_theme"
+command: "$token = (Get-Content \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\graphql-connection-info.json\" | ConvertFrom-Json).authToken\n$headers = @{ Authorization = \"Bearer $token\"; \"Content-Type\" = \"application/json\" }\n$queries = @(\n  '{\"query\":\"mutation { startSite(id: \\\"PE8VINc99\\\") { id status } }\"}',\n  '{\"query\":\"mutation { startSite(siteID: \\\"PE8VINc99\\\") { id status } }\"}',\n  '{\"query\":\"mutation { startSite(siteId: \\\"PE8VINc99\\\") { id status } }\"}'\n)\nforeach ($q in $queries) {\n  Write-Host \"TRY $q\"\n  try {\n    $r = Invoke-WebRequest -Uri \"http://127.0.0.1:4000/graphql\" -Method POST -Headers $headers -Body $q -UseBasicParsing\n    Write-Host $r.Content\n  } catch {\n    Write-Host $_.Exception.Message\n    if ($_.ErrorDetails) { Write-Host $_.ErrorDetails.Message }\n  }\n}"
+title: "Try Local GraphQL startSite mutations"
+status: succeeded
+started_at: 2026-09-18T07:00:58.082Z
+running_for_ms: 40096    
+---
+TRY {"query":"mutation { startSite(id: \"PE8VINc99\") { id status } }"}
+{"data":{"startSite":{"id":"PE8VINc99","status":"running"}}}
+
+TRY {"query":"mutation { startSite(siteID: \"PE8VINc99\") { id status } }"}
+The remote server returned an error: (400) Bad Request.
+{"errors":[{"message":"Unknown argument \"siteID\" on field \"Mutation.startSite\".","locations":[{"line":1,"column":22}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}},{"message":"Field \"startSite\" argument \"id\" of type \"ID!\" is required, but it was not provided.","locations":[{"line":1,"column":12}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}}]}
+
+TRY {"query":"mutation { startSite(siteId: \"PE8VINc99\") { id status } }"}
+The remote server returned an error: (400) Bad Request.
+{"errors":[{"message":"Unknown argument \"siteId\" on field \"Mutation.startSite\".","locations":[{"line":1,"column":22}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}},{"message":"Field \"startSite\" argument \"id\" of type \"ID!\" is required, but it was not provided.","locations":[{"line":1,"column":12}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}}]}
+
+
+---
+exit_code: 0
+elapsed_ms: 40095
+ended_at: 2026-09-18T07:01:38.177Z
+---

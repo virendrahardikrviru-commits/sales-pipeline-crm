@@ -1,0 +1,28 @@
+---
+pid: 16216
+cwd: "C:\\Projects\\listingcore_theme"
+command: "$php = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\php.exe\"\n$wp = \"C:\\Users\\ACER\\Downloads\\wp-cli.phar\"\n$public = \"C:\\Users\\ACER\\Local Sites\\listingcore\\app\\public\"\n$ini = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\run\\PE8VINc99\\conf\\php\\php.ini\"\nfunction WP { param([Parameter(ValueFromRemainingArguments=$true)]$c) & $php -c $ini $wp @c --path=$public }\nWP eval \"echo 'thumb='.get_post_thumbnail_id(40).' url='.get_the_post_thumbnail_url(40,'full');\"\n\n$base = \"http://127.0.0.1:10004\"\n$cookie = \"$env:TEMP\\lc-qa-admin.txt\"\nfunction Get-Nonce {\n  curl.exe -s -c $cookie -b $cookie -o \"$env:TEMP\\lc-edit.html\" \"$base/account/?account=edit&item=40\"\n  $html = Get-Content \"$env:TEMP\\lc-edit.html\" -Raw\n  if ($html -match 'name=\"listingcore_update_nonce\"[^>]*value=\"([^\"]+)\"') { return $Matches[1] }\n  if ($html -match 'value=\"([^\"]+)\"[^>]*name=\"listingcore_update_nonce\"') { return $Matches[1] }\n  return \"\"\n}\nWrite-Host \"`n=== REMOVE IMAGE ===\"\n$nonce = Get-Nonce\n$html = Get-Content \"$env:TEMP\\lc-edit.html\" -Raw\nWrite-Host \"HAS_REMOVE=$($html -match 'remove_listing_image') NONCE=$nonce\"\ncurl.exe -s -c $cookie -b $cookie -D \"$env:TEMP\\lc-h.txt\" -o \"$env:TEMP\\lc-r.html\" `\n  -F \"listingcore_update_nonce=$nonce\" `\n  -F \"action=listingcore_update_listing\" `\n  -F \"listing_id=40\" `\n  -F \"listing_category=10\" `\n  -F \"title=Phase 5 QA edited listing\" `\n  -F \"ad_type=sell\" `\n  -F \"condition=new\" `\n  -F \"city=Dallas\" `\n  -F \"state=Texas\" `\n  -F \"country=USA\" `\n  -F \"address=200 Main St\" `\n  -F \"zip=75201\" `\n  -F \"price=99\" `\n  -F \"currency=USD\" `\n  -F \"price_type=negotiable\" `\n  -F \"description=Edited description after image upload.\" `\n  -F \"website=https://example.com/edited\" `\n  -F \"video_url=https://www.youtube.com/watch?v=oHg5SJYRHA0\" `\n  -F \"hide_email=1\" `\n  -F \"hide_phone=1\" `\n  -F \"remove_listing_image=1\" `\n  \"$base/wp-admin/admin-post.php\"\nWrite-Host ((Get-Content \"$env:TEMP\\lc-h.txt\") | Select-String \"HTTP/|Location:\")\nWP eval \"echo 'after-remove thumb='.get_post_thumbnail_id(40);\"\n\nWrite-Host \"`n=== EMPTY TITLE ===\"\n$nonce = Get-Nonce\ncurl.exe -s -c $cookie -b $cookie -D \"$env:TEMP\\lc-h.txt\" -o \"$env:TEMP\\lc-r.html\" `\n  -F \"listingcore_update_nonce=$nonce\" `\n  -F \"action=listingcore_update_listing\" `\n  -F \"listing_id=40\" `\n  -F \"listing_category=10\" `\n  -F \"title=\" `\n  -F \"description=keep desc\" `\n  -F \"ad_type=sell\" `\n  -F \"city=Dallas\" `\n  \"$base/wp-admin/admin-post.php\"\nWrite-Host ((Get-Content \"$env:TEMP\\lc-h.txt\") | Select-String \"HTTP/|Location:\")\nWP eval \"echo 'title-still='.get_post(40)->post_title.' count='.count(get_posts(array('name'=>'phase-5-qa-free-listing','post_type'=>'listing','post_status'=>'any','numberposts'=>5)));\"\n"
+title: "Remove featured image and test empty-title edit"
+status: succeeded
+started_at: 2026-09-18T15:26:43.004Z
+running_for_ms: 122352   
+---
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿thumb=45 url=http://127.0.0.1:10004/wp-content/uploads/2026/09/valid-1.jpg
+=== REMOVE IMAGE ===
+HAS_REMOVE=True NONCE=a32ccf8e1a
+HTTP/1.1 302 Found Location: http://127.0.0.1:10004/listings/phase-5-qa-free-listing/
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿after-remove thumb=0
+=== EMPTY TITLE ===
+HTTP/1.1 302 Found Location: http://127.0.0.1:10004/?listingcore_edit_error=A%20listing%20title%20is%20required.
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿title-still=Phase 5 QA edited listing count=1
+---
+exit_code: 0
+elapsed_ms: 122352
+ended_at: 2026-09-18T15:28:45.356Z
+---

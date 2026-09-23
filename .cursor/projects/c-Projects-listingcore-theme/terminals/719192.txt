@@ -1,0 +1,69 @@
+---
+pid: 16360
+cwd: "C:\\Users\\ACER\\Local Sites\\listingcore\\app\\public"
+command: "function Get-Page($path) {\n  try {\n    $r = Invoke-WebRequest -Uri \"http://127.0.0.1:10004$path\" -UseBasicParsing -TimeoutSec 20\n    return @{ Code=[int]$r.StatusCode; Body=$r.Content }\n  } catch {\n    $code = 0; $body = \"\"\n    if ($_.Exception.Response) {\n      $code = [int]$_.Exception.Response.StatusCode\n      try { $body = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}\n    }\n    return @{ Code=$code; Body=$body }\n  }\n}\n\n$h = (Get-Page \"/\").Body\n\"HOME fatal: $(([regex]::Matches($h,'Fatal error|critical error')).Count)\"\n\"Vintage: $(([regex]::Matches($h,'Vintage bicycle')).Count)\"\n\"Oak: $(([regex]::Matches($h,'Oak dining table')).Count)\"\n\"Hello world: $(([regex]::Matches($h,'Hello world')).Count)\"\n\"lamp: $(([regex]::Matches($h,'Seller two lamp')).Count)\"\n\"Latest listings: $(([regex]::Matches($h,'Latest listings')).Count)\"\n\"View All: $(([regex]::Matches($h,'View All')).Count)\"\n\"href listings: $(([regex]::Matches($h,'href=\\\"http://127.0.0.1:10004/listings/\\\"')).Count)\"\n\n$php = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\php.exe\"\n$ext = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\ext\"\n$wp = \"C:\\Users\\ACER\\Downloads\\wp-cli.phar\"\n$public = \"C:\\Users\\ACER\\Local Sites\\listingcore\\app\\public\"\n$phpArgs = @(\"-d\",\"extension_dir=$ext\",\"-d\",\"extension=php_mysqli.dll\",\"-d\",\"extension=php_curl.dll\",\"-d\",\"extension=php_mbstring.dll\",\"-d\",\"extension=php_openssl.dll\",\"-d\",\"extension=php_fileinfo.dll\",\"-d\",\"extension=php_gd.dll\",\"-d\",\"extension=php_zip.dll\")\nfunction WP { param([Parameter(ValueFromRemainingArguments=$true)]$c) & $php @phpArgs $wp @c --path=$public }\n\nWrite-Host \"`n=== ENV A: deactivate plugins ===\"\nWP plugin deactivate listingcore theme-check\nWrite-Host \"`n=== ENV A HTTP ===\"\n$paths = @(\"/\",\"/?s=hello\",\"/hello-world/\",\"/sample-page/\",\"/about/\",\"/account/\",\"/log-in/\",\"/register/\",\"/lost-password/\",\"/listings/\",\"/listings/vintage-bicycle/\")\nforeach ($p in $paths) {\n  $x = Get-Page $p\n  $fatal = if ($x.Body -match \"Fatal error|critical error\") { \"FATAL\" } else { \"ok\" }\n  $lc = ([regex]::Matches($x.Body, \"listingcore/v1\")).Count\n  $req = if ($x.Body -match \"plugin required|activate ListingCore|ListingCore is required\") { \"REQ\" } else { \"\" }\n  Write-Host (\"{0,4} {1,-8} {2,-4} {3} {4}\" -f $x.Code, $fatal, $req, $x.Body.Length, $p)\n}\n$homeA = (Get-Page \"/\").Body\n\"ENV A Latest Posts: $(([regex]::Matches($homeA,'Latest Posts')).Count)\"\n\"ENV A Latest listings: $(([regex]::Matches($homeA,'Latest listings')).Count)\"\n\"ENV A Hello world: $(([regex]::Matches($homeA,'Hello world')).Count)\"\n\"ENV A Vintage: $(([regex]::Matches($homeA,'Vintage bicycle')).Count)\"\n\"ENV A dashboard my listings: $(([regex]::Matches((Get-Page '/account/').Body,'My listings')).Count)\"\n\nWrite-Host \"`n=== REACTIVATE LC ===\"\nWP plugin activate listingcore\nWP plugin activate theme-check\n\nWrite-Host \"`n=== INSTALL WC + ELEMENTOR ===\"\nWP plugin install woocommerce elementor --activate 2>&1 | Select-Object -Last 40"
+title: "Verify homepage fix, Env A, install WC/Elementor"
+status: succeeded
+started_at: 2026-09-18T07:28:47.646Z
+running_for_ms: 137692   
+---
+HOME fatal: 0
+Vintage: 1
+Oak: 1
+Hello world: 0
+lamp: 1
+Latest listings: 1
+View All: 0
+href listings: 1
+
+=== ENV A: deactivate plugins ===
+﻿Plugin 'listingcore' deactivated.
+Plugin 'theme-check' deactivated.
+Success: Deactivated 2 of 2 plugins.
+
+=== ENV A HTTP ===
+ 200 ok            43938 /
+ 200 ok            55905 /?s=hello
+ 200 ok            54403 /hello-world/
+ 200 ok            51453 /sample-page/
+ 200 ok            48093 /about/
+ 200 ok            37313 /account/
+ 200 ok            37293 /log-in/
+ 200 ok            37703 /register/
+ 200 ok            37374 /lost-password/
+ 200 ok            43920 /listings/
+ 200 ok            43920 /listings/vintage-bicycle/
+ENV A Latest Posts: 1
+ENV A Latest listings: 0
+ENV A Hello world: 1
+ENV A Vintage: 0
+ENV A dashboard my listings: 0
+
+=== REACTIVATE LC ===
+﻿Plugin 'listingcore' activated.
+Success: Activated 1 of 1 plugins.
+﻿Plugin 'theme-check' activated.
+Success: Activated 1 of 1 plugins.
+
+=== INSTALL WC + ELEMENTOR ===
+Installing WooCommerce (11.1.0)
+Downloading installation package from https://downloads.wordpress.org/plugin/woocommerce.11.1.0.zip...
+Unpacking the package...
+Installing the plugin...
+Plugin installed successfully.
+Activating 'woocommerce'...
+Plugin 'woocommerce' activated.
+Installing Elementor Website Builder - more than just a page builder (4.2.4)
+Downloading installation package from https://downloads.wordpress.org/plugin/elementor.4.2.4.zip...
+Unpacking the package...
+Installing the plugin...
+Plugin installed successfully.
+Activating 'elementor'...
+Plugin 'elementor' activated.
+Success: Installed 2 of 2 plugins.
+
+---
+exit_code: 0
+elapsed_ms: 137692
+ended_at: 2026-09-18T07:31:05.338Z
+---

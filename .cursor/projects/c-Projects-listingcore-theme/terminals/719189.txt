@@ -1,0 +1,32 @@
+---
+pid: 1904
+cwd: "C:\\Projects\\listingcore_theme"
+command: "Get-ChildItem \"C:\\Projects\\listingcore_theme\\tools\" -Force; Write-Host \"---WP-CLI SEARCH---\"; Get-ChildItem -Path \"C:\\\",\"C:\\xampp\",\"C:\\Program Files\" -Filter \"wp.bat\" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 5 FullName; Get-ChildItem -Path \"C:\\xampp\",\"C:\\Users\\ACER\" -Filter \"wp-cli.phar\" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 5 FullName; Write-Host \"---NODE I18N---\"; npm list -g --depth=0 2>$null | Select-String -Pattern \"wp-pot|i18n\"; Write-Host \"---PYTHON---\"; python --version"
+title: "Find POT tools, WP-CLI, Python"
+status: succeeded
+started_at: 2026-09-18T06:16:12.596Z
+running_for_ms: 639023   
+---
+Get-ChildItem : Cannot find path 'C:\Projects\listingcore_theme\tools' because it does not exist.
+At C:\Users\ACER\AppData\Local\Temp\ps-script-c2cf3ad7-15d5-45ae-9468-8e603e721715.ps1:109 char:1
++ Get-ChildItem "C:\Projects\listingcore_theme\tools" -Force; Write-Hos ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Projects\listingcore_theme\tools:String) [Get-ChildItem], ItemNotFou 
+   ndException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+---WP-CLI SEARCH---
+
+FullName                                                                                                             
+--------                                                                                                             
+C:\Users\ACER\Downloads\ListingCore\classipress-pro-plugin\wordpress\wp-content\plugins\woocommerce\vendor\bin\wp.bat
+C:\Users\ACER\Downloads\wp-cli.phar                                                                                  
+---NODE I18N---
+---PYTHON---
+Python 3.14.4
+
+---
+exit_code: 0
+elapsed_ms: 639017
+ended_at: 2026-09-18T06:26:51.613Z
+---

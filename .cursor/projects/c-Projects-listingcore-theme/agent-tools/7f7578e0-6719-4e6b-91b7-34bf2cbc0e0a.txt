@@ -1,0 +1,619 @@
+Title: Required
+Author: Tammie Lister
+Published: November 4, 2014
+Last modified: June 9, 2026
+
+---
+
+# Required
+
+## In this article
+
+- 1. Licensing & copyright
+- 2. Privacy
+- 3. Accessibility
+- 4. Code
+- 5. Functionality and Features
+- 6. Plugins
+- 7. Naming, spelling, and trademarks
+- 8. Language & internationalization
+- 9. Files
+- 10. Classic themes
+- 11. Block themes
+- 12. Theme settings pages and onboarding
+- 13. Selling, credits, links, and spam
+- 14. Theme author and theme upload restrictions
+
+↑ Back to top
+
+A theme must meet all of the following requirements to be included in the WordPress.
+orgWordPress.org The community site where WordPress code is created and shared by
+the users. This is where you can download the source code for WordPress core, plugins
+and themes as well as the central location for community conversations and organization.
+https://wordpress.org/ Theme Directory.
+
+Themes that have 3 or more distinct issues may be closed as not-approved. However,
+theme authors may resubmit the theme once they’ve corrected the issues.
+
+---
+
+### 󠀁 1. Licensing & copyright󠁿
+
+Themes must be compatible with the GNU General Public License
+
+Although any GPLGPL GPL is an acronym for GNU Public License. It is the standard
+license WordPress uses for Open Source licensing https://wordpress.org/about/license/.
+The GPL is a ‘copyleft’ license https://www.gnu.org/licenses/copyleft.en.html.
+This means that derivative work can only be distributed under the same license terms.
+This is in distinction to permissive free software licenses, of which the BSD license
+and the MIT License are widely used examples.-compatible license is acceptable,
+using the same license as WordPress — “GPLv2 or later” — is strongly recommended.
+
+All code, data, and images — anything in the theme zip file — must comply with the
+GPL or a GPL-Compatible license.
+Included third-party libraries, code, images, or
+otherwise, must be compatible.For a specific list of compatible licenses, please
+read the GPL-Compatible license list on gnu.org.
+
+- Include copyright information for the theme itself.
+- Include license, copyright information, and source for all resources included,
+such as fonts or images (For assets in the public domain, copyright information
+is excluded).
+- Provide a list of all resources in one file.
+- All code and design must be your own or legally yours. Cloning of designs is
+not acceptable.
+- Copyright statements on the front end must only display the user’s copyright,
+not the theme author’s copyright.
+Read more about copyright and attribution.
+
+### 󠀁 2. Privacy󠁿
+
+Any tracking and collection of user data must be disabled by default and opt-in
+only.
+Documentation on how any user data is collected and used needs to be in the
+theme readme.txt file, preferably with a clearly stated privacy policy.
+
+### 󠀁 3. Accessibility󠁿
+
+Skip links
+Themes must include a mechanism that enables users to navigate directly
+to content or navigation on entering any given page.
+
+These links may be positioned off-screen initially but must be available to screen
+reader users and must be visible on focus for sighted keyboard navigators.
+A minimally
+conforming skip link must:
+
+- Be the first focusable element perceived by a user via a screen reader or keyboard
+navigation
+- Be visible when keyboard focus moves to the link
+- Move focus to the main content area of the page when activated
+
+Notes: This only applies if there is something to skip past, such as a menu
+or larger headerHeader The header of your site is typically the first thing people
+will experience. The masthead or header art located across the top of your page
+is part of the look and feel of your website. It can influence a visitor’s opinion
+about your content and you/ your organization’s brand. It may also look different
+on different screen sizes. section or secondary widgetWidget A WordPress Widget
+is a small block that performs a specific function. You can add these widgets in
+sidebars also known as widget-ready areas on your web page. WordPress widgets were
+originally created to provide a simple and easy-to-use way of giving design and
+structure control of the WordPress theme to the user. area before the main content.
+
+In blockBlock Block is the abstract term used to describe units of markup that,
+composed together, form the content or layout of a webpage using the WordPress editor.
+The idea combines concepts of what in the past may have achieved with shortcodes,
+custom HTML, and embed discovery into a single consistent API and user experience.
+themes, skip links are added automatically to the ` ` tag.
+
+Keyboard navigation
+Theme authors must provide visual keyboard focus highlighting
+in navigation menus and for form fields, submit buttons, and text links.
+
+- All controls and links must be reachable using the keyboard.
+- All controls usable with the mouse must be usable with the keyboard, regardless
+of device and screen size. Including but not limited to responsive versions for
+small screens, mobile and other touch screen devices.
+
+Further reading about keyboard navigation
+
+If the theme has the tag ‘accessibilityAccessibility Accessibility (commonly shortened
+to a11y) refers to the design of products, devices, services, or environments for
+people with disabilities. The concept of accessible design ensures both “direct
+access” (i.e. unassisted) and “indirect access” meaning compatibility with a person’s
+assistive technology (for example, computer screen readers). (https://en.wikipedia.
+org/wiki/Accessibility)-ready’ then it needs to meet  these additional requirements.
+
+### 󠀁 4. Code󠁿
+
+There must not be any PHPPHP PHP (recursive acronym for PHP: Hypertext Preprocessor)
+is a widely-used open source general-purpose scripting language that is especially
+suited for web development and can be embedded into HTML. https://www.php.net/manual/en/index.php
+or JavaScriptJavaScript JavaScript or JS is an object-oriented computer programming
+language commonly used to create interactive effects within web browsers. WordPress
+makes extensive use of JS for a better user experience. While PHP is executed on
+the server, JS executes within a user’s browser. https://www.javascript.com
+errors, warnings, or notices.
+The theme must be secure.
+
+- Validate and sanitize untrusted data before entering it into the database.
+- Escape all untrusted data before output (See: Data Validation).
+
+Do not use deprecated functions or constants.
+
+Prefix
+Provide a unique prefix for everything the theme defines in the public
+namespace, including options, functions, global variables, constants, post metaMeta
+Meta is a term that refers to the inside workings of a group. For us, this is the
+team that works on internal WordPress sites like WordCamp Central and Make WordPress.,
+wp_enqueue_script/style handle names, add_image_size names, wp_script_add_data keys,
+slugs/ids for new categories created with register_block_pattern_category etc.
+
+A minimum of four letters is necessary for prefix length.
+Exceptions:
+
+- `wp_enqueue_script` & `wp_enqueue_style` handles should not be prefixed if they
+are 3rd-party assets, like a framework’s CSSCSS CSS is an acronym for cascading
+style sheets. This is what controls the design or look and feel of a site. files
+or any 3rd-party script.
+- Menu locations and sidebarSidebar A sidebar in WordPress is referred to a widget-
+ready area used by WordPress themes to display information that is not a part
+of the main content. It is not always a vertical column on the side. It can be
+a horizontal rectangle below or above the content area, footer, header, or any
+where in the theme. IDs.
+
+### 󠀁 5. Functionality and Features󠁿
+
+Manipulating the preview on WordPress.org is not allowed and can result in suspension
+or your user account being terminated.
+
+Admin notices:
+
+- Use the admin_notices API
+for all notifications generated by the theme.
+- Notices must be dismissible.
+- Everything wrapped in the admin notice must follow coreCore Core is the set of
+software required to run WordPress. The Core Development Team builds WordPress.
+UIUI UI is an acronym for User Interface – the layout of the page the user interacts
+with. Think ‘how are they doing that’ and less about what they are doing. design
+for notices.
+
+Do not:
+
+- Place WordPress features behind a paywall
+- Remove, hide, or otherwise block the admin bar from appearing
+- Redirect on theme activation or modify the activation process
+- Remove non-presentational hooksHooks In WordPress theme and development, hooks
+are functions that can be applied to an action or a Filter in WordPress. Actions
+are functions performed when a certain event occurs in WordPress. Filters allow
+you to modify certain functions. Arguments used to hook both filters and actions
+look the same.
+
+Do not include:
+
+- Custom post types
+- Custom blocks
+- Custom roles
+- Custom user contact methods
+- Custom mime types
+- Shortcodes
+- Functionality that is not related to design and presentation
+
+**Examples of non-presentational hooks **
+
+```
+```wp-block-code
+'wp_generator', // @link https://developer.wordpress.org/reference/functions/wp_generator/
+'feed_links', // @link https://developer.wordpress.org/reference/functions/feed_links/
+'feed_links_extra', // @link https://developer.wordpress.org/reference/functions/feed_links_extra/
+'wp_resource_hints', // @link https://developer.wordpress.org/reference/functions/wp_resource_hints/
+'adjacent_posts_rel_link_wp_head', // @link https://developer.wordpress.org/reference/functions/adjacent_posts_rel_link_wp_head/
+'wp_shortlink_wp_head', // @link https://developer.wordpress.org/reference/functions/wp_shortlink_wp_head/
+'_admin_bar_bump_cb', // @link https://developer.wordpress.org/reference/functions/_admin_bar_bump_cb/
+'rsd_link', // @link https://developer.wordpress.org/reference/functions/rsd_link/
+'rest_output_link_wp_head', // @link https://developer.wordpress.org/reference/functions/rest_output_link_wp_head/
+'wp_oembed_add_discovery_links', // @link https://developer.wordpress.org/reference/functions/wp_oembed_add_discovery_links/
+'wp_oembed_add_host_js', // @link https://developer.wordpress.org/reference/functions/wp_oembed_add_host_js/
+'rel_canonical', // @link https://developer.wordpress.org/reference/functions/rel_canonical/
+```
+
+```
+
+### 󠀁 6. Plugins󠁿
+
+Themes may only recommend plugins that are hosted on WordPress.org.
+
+Plugins may only be installed by user action, not automatically.
+
+Do not:
+
+- Include zip files or plugins in the theme folder, or download plugins automatically.
+- Include pluginPlugin A plugin is a piece of software containing a group of functions
+that can be added to a WordPress website. They can extend functionality or add
+new features to your WordPress websites. WordPress plugins are written in the
+PHP programming language and integrate seamlessly with WordPress. These can be
+free in the WordPress.org Plugin Directory https://wordpress.org/plugins/
+or can be cost-based plugin from a third-party. functionality.
+
+If you are not sure if a feature is plugin functionality, contact the team and ask
+first.  themes@wordpress.org.
+
+**Examples of plugin territory **
+
+```
+```wp-block-code
+Analytics or tracking support
+SEO options
+Contact forms
+Non-design related meta boxes
+Resource caching
+Social media ‘like’, ‘follow’ and ‘share buttons’
+Session tampering
+```
+
+```
+
+### 󠀁 7. Naming, spelling, and trademarks󠁿
+
+The themes team can decline themes based on the name and request that the name is
+changed if they decide that the name is inappropriate or too similar to an existing
+theme or brand.
+
+- Theme names must not use: WordPress, Theme, Twenty*
+- Spell “WordPress” correctly in all public-facing text: all one word, with both
+an uppercase W and P
+- No violation of trademarks
+- The theme logo and banner image must not include the WordPress logo
+
+### 󠀁 8. Language & internationalization󠁿
+
+All text strings must be translatable using gettext, with the temporary exception
+of text in HTMLHTML HTML is an acronym for Hyper Text Markup Language. It is a markup
+language that is used in the development of web pages and websites. template files.
+
+Use the theme slug as the text-domain and add it to style.css.The theme slug is
+the name of the theme in lower case, with spaces replaced by a hyphen (-).It is
+also the folder name for the theme.If the theme uses a framework, then no more than
+two unique text domains may be used (like tgmpa, redux-framework, kirki, or some
+other allowed framework) Read more about internationalization.
+
+### 󠀁 9. Files󠁿
+
+Prepare your files:
+
+- Themes must be complete at the time of submission.
+- Remove code not intended for the free version of the theme.
+- Remove directories such as .git, .svn, .hg, and .bzr.
+- Make sure that only one type of line ending is used. If both DOS and UNIX line
+endings are used, this can cause problems with SVNSVN Apache Subversion (often
+abbreviated SVN, after its command name svn) is a software versioning and revision
+control system. Software developers use Subversion to maintain current and historical
+versions of files such as source code, web pages, and documentation. Its goal
+is to be a mostly compatible successor to the widely used Concurrent Versions
+System (CVS). WordPress core and the wordpress.org released code are all centrally
+managed through SVN. https://subversion.apache.org/., and your theme or theme
+update will not be uploaded to the directory.
+- If your theme is based on a starter theme like Underscores (_s), make sure that
+all files are updated correctly.
+
+Files that are not allowed
+
+```
+```wp-block-code
+thumbs.db          =>  Windows thumbnail store
+desktop.ini        =>  windows system file
+project.properties =>  NetBeans Project File
+project.xml        =>  NetBeans Project File
+.kpf               =>  Komodo Project File
+php.ini            =>  PHP server settings file
+dwsync.xml         =>  Dreamweaver project file
+error_log          =>  PHP error log
+web.config         =>  Server settings file
+.sql               =>  SQL dump file
+__MACOSX           =>  OSX system file
+.lubith            =>  Lubith theme generator file
+.wie               =>  Widget import file
+.dat               =>  Customizer import file
+.xml               =>  XML file
+.sh                =>  Shell script file
+favicon.ico        =>  Favicon
+
+Hidden Files or Folders
+Zip files
+
+Allowed xml files:
+wpml-config.xml,loco.xml,phpcs.xml,
+```
+
+```
+
+No remote resources are allowed without user consent:
+Include all scripts, images,
+videos and other resources in the theme zip file. The only exception to this requirement
+is Google Fonts.
+
+Do not:
+
+- Use CDN or similar services
+- Fetch any files or data from a remote resource, including your websites, without
+the user’s explicit consent.
+
+This is because of GDPR and privacy requirements.
+
+Main stylesheet
+
+The headers in style.css need to follow the guidelines and requirements for the main stylesheet in the Theme Developer Handbook.
+
+Required headers in style.css
+
+```
+```wp-block-code
+Theme Name: Name of the theme.
+Author: The name of the individual or organization who developed the theme. Using the Theme Author’s wordpress.org username is recommended.
+Description: A short description of the theme.
+Version: The version, written in X.X or X.X.X format.
+Requires at least: The oldest main WordPress version supported, written in X.X format.
+Tested up to: The last main WordPress version the theme has been tested up to, i.e. 5.4. Only the number.
+Requires PHP: The oldest PHP version supported, in X.X format, only the number
+License: The license of the theme.
+License URI: The URL of the theme license.
+Text Domain: The string used for textdomain for translation.
+```
+
+```
+
+Theme URI is optional. If used, it must be about the theme we’re hosting on WordPress.
+org.
+Using WordPress.org in the Theme URI is reserved for the default themes (Twenty
+X).Author URI is optional. If used, it must be a page or website about the author,
+author theme shop, or author project/development website.
+
+For a list of available tags, see Theme Tag List.
+
+Readme.txt file
+
+A valid readme.txt file must be included.
+
+readme.txt example
+
+```
+```wp-block-code
+=== Theme Name ===
+Contributors: (Should only contain one WordPress.org username.)
+Requires at least: 5.0
+Tested up to: 5.2
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Short description. No more than 150 chars.
+
+== Description ==
+Theme desc.
+
+== Frequently Asked Questions ==
+
+= A question that someone might have =
+
+An answer to that question.
+
+== Changelog ==
+
+= 1.0 =
+* Added new option
+
+= 0.5 =
+* Security bug addressed
+* Changed thumbnail size
+
+== Upgrade Notice ==
+
+= 1.0 =
+* Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+
+= 0.5 =
+
+* This version fixes a security related bug.  Upgrade immediately.
+
+== Resources ==
+* magnify.jpg Jane Doe, CC0, example.com
+* supermenu.js © 2013-2015 James Today, MIT, example.com
+```
+
+```
+
+Stylesheets and scripts
+
+When minified scripts or files are used, the original files must also be included
+in the theme folder.
+
+Use of third party libraries
+WordPress includes a number of libraries such as
+jQuery. For security and stability reasons, themes may not include those libraries
+in their own code. Instead, themes must use the versions of those libraries packaged
+with WordPress.For a list of all JavaScript libraries included in WordPress, see
+Default Scripts Included and Registered by WordPress.
+
+Images
+
+Images that promote hate or violence or images that show children with recognizable
+facial or body features are not permitted.
+Screenshot
+
+- The screenshot must not look like an advertisement. The reviewer can subjectively
+ask you to change screenshots if they find that it is not appropriate.
+- The screenshot must not be bigger than 1200 x 900px
+- The ratio of width to height needs to be 4:3
+
+### 󠀁 10. Classic themes󠁿
+
+Have a valid DOCTYPE declaration and include language_attributes().
+
+Call custom template files using get_template_part()
+or locate_template().
+
+Display the correct content according to the front page setting (See explanation).
+
+Use edit_theme_options capability for determining user permission to edit options,
+rather than relying on a role (e.g., administrator) or a different capability (e.
+g., edit_themes, manage_options).
+
+Include:
+
+- wp_head() – (
+immediately before `</head>` )
+- body_class()–(
+inside the body tag)
+- wp_footer()–(
+immediately before `</body>` )
+- wp_body_open()–(
+immediately after` <body>`)
+- post_class()
+- wp_link_pages()
+- add_theme_support( ‘title-tag’ )
+- add_theme_support( ‘automatic-feed-links’ )
+
+Templates
+If used in the theme, standard template files are required to be
+called by their respective function.
+
+- header.php (via get_header())
+- footer.php (via get_footer())
+- sidebar.php (via get_sidebar())
+- searchform.php (via get_search_form())
+
+### 󠀁 11. Block themes󠁿
+
+Include required files: style.css, readme.txt, theme.jsonJSON JSON, or JavaScript
+Object Notation, is a minimal, readable format for structuring data. It is used
+primarily to transmit data between a server and web application, as an alternative
+to XML., and index.html.
+Index.html needs to be placed inside a folder called `templates`.
+
+Block templates must be complete, and blocks may not have missing or incorrect closing
+tags.
+
+### 󠀁 12. Theme settings pages and onboarding󠁿
+
+Admin notice / theme activation
+
+Themes must use the `admin_notices` hook to provide any custom messages to the user.
+These admin notices must either be a one-time message or permanently dismissible.
+This notice can be used to link to a settings page or start an onboarding process,
+for example. Popups are not allowed upon theme activation.
+
+Admin page
+
+Themes may optionally add custom sub-pages under Appearance in the WordPress admin.
+
+They should only contain core WordPress UI elements and generally match the WordPress
+admin design.
+
+If necessary, themes can include custom styles or scripts for their admin pages,
+but they cannot leak/spill out to other WordPress admin pages. Enqueue styles/scripts
+on the `admin_enqueue_scripts` hook and use `$hook_suffix` parameter to determine
+the page.
+
+For ReactReact React is a JavaScript library that makes it easy to reason about,
+construct, and maintain stateless and stateful user interfaces. https://reactjs.org-
+based admin pages, make use of  Core components
+for features if they are available.
+
+Additionally, themes must reference the correct  user role capabilities
+when performing any action inside of the WordPress admin. They must also use an
+appropriate capability selector or function, such as `canUser` or `current_user_can()`.
+
+Inserting posts/pages via `wp_insert|update_post()` can be used if the action is
+done with user consent.
+
+Options
+
+Themes must use the  Settings and Options APIs
+when storing custom settings in the database. 
+
+Themes must also only add a single database option, which should be an array when
+storing multiple settings. This option must also be prefixed with the theme slug.
+
+Themes may optionally custom core WordPress options that only affect the front-end
+and how the website displays (e.g., site logo, front page settings), as long as
+the user is notified that their saved options will be modified. User consent is
+required.
+
+All data passed to `add_option()`, `update_option()`, or other functions for saving
+to the database must be validated and/or sanitized with the correct function or
+method for the data type.
+
+Not allowed
+
+The following features are not allowed as part of an admin menu or onboarding process:
+
+- Demo imports
+- External calls
+- Tracking/Affiliate links
+
+### 󠀁 13. Selling, credits, links, and spam󠁿
+
+Themes can include one single front-facing credit link, which is restricted to the
+Theme URI or Author URI defined in style.css.
+Themes can also have an additional
+front-facing credit link pointing to WordPress.org.
+
+- Themes must not display obtrusive upselling
+- Themes must not display upselling on the front
+
+Themes must disclose all affiliates.
+
+The theme and its public-facing pages, including theme description, readme files,
+bundled starter content, and translation files, may not be used to spam. Spammy
+behavior includes (but is not limited to) tags to competitors’ products, blackhat
+SEO, and keyword stuffing.
+
+### 󠀁 14. Theme author and theme upload restrictions󠁿
+
+Only submit one new theme at a time. You can submit unlimited updates for your existing
+themes that are in the theme directory.
+
+Theme names cannot be “reserved” for future use.
+Intentionally attempting to exploit
+loopholes in the guidelines may lead to suspension. Licensing of themes distributed
+outside the theme directory If you distribute themes, you may only distribute themes
+that are 100% compatible with GPL.Otherwise, you can not add themes to the WordPress.
+org Theme Directory (See explanation).
+
+Example: If you have a Themeforest account and you’re selling themes on it, all
+those themes need to state on their sales page that they are 100% GPL compatible
+(Info).
+
+Your site needs to state that the products you’re selling/distributing (free and
+paid) are GPL compatible. It needs to be in an easy-to-find place for visitors.
+
+Multiple Theme Author Accounts
+You can have multiple accounts with the following
+restrictions:You can’t have more than one (1) open ticket in any of the TracTrac
+Trac is the place where contributors create issues for bugs or feature requests
+much like GitHub. https://core.trac.wordpress.org/.
+reports/queues or under review. That means you can’t have one (1) theme ticket from
+an account and another one from a secondary account simultaneously open in any of
+the queues.Failing to respect the above requirement will result in the closing of
+all tickets and not having the possibility to upload those themes again. Also, a
+one (1) month no upload possibility for each ticket closed. Depending on the severity
+of the case, you might also end up with a permanent ban on all your accounts.To
+avoid penalties, the team requests that you disclose all your accounts by emailing
+us at themes[at]wordpress.org.
+
+---
+
+Now that you have read and made sure that your theme follows all the requirements,
+you are welcome to upload your theme.
+
+First published
+
+November 4, 2014
+
+Last updated
+
+June 9, 2026
+
+  Previous: Review Process
+
+  Next: Theme Check Plugin

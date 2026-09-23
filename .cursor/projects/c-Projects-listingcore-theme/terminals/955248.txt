@@ -1,0 +1,59 @@
+---
+pid: 10204
+cwd: "C:\\Projects\\listingcore_theme"
+command: "$php = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\php.exe\"\n$wp = \"C:\\Users\\ACER\\Downloads\\wp-cli.phar\"\n$public = \"C:\\Users\\ACER\\Local Sites\\listingcore\\app\\public\"\n$ini = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\run\\PE8VINc99\\conf\\php\\php.ini\"\n$theme = \"C:\\Projects\\listingcore_theme\"\nfunction WP { param([Parameter(ValueFromRemainingArguments=$true)]$c) & $php -c $ini $wp @c --path=$public }\n\nWrite-Host \"=== RTL SWITCH ===\"\nWP language core is-installed ar\nWP site switch-language ar\nWP option get WPLANG\n\n$rtl = (Invoke-WebRequest -Uri \"http://127.0.0.1:10004/listings/?view=list\" -UseBasicParsing).Content\nWrite-Host \"HTML_LANG=\" ([regex]::Match($rtl,'<html[^>]*>').Value)\nWrite-Host \"DIR_RTL=$($rtl -match 'dir=\\\"rtl\\\"')\"\nWrite-Host \"PRICE_LBL_ORDER:\" \n$idxMin = $rtl.IndexOf('Minimum price')\n$idxMax = $rtl.IndexOf('Maximum price')\nWrite-Host \"minIdx=$idxMin maxIdx=$idxMax minBeforeMax=$($idxMin -ge 0 -and $idxMin -lt $idxMax)\"\nWrite-Host \"HAS_DASHBOARD=$($rtl -match 'لوحة' -or $rtl -match 'Account')\"\n\nWrite-Host \"`n=== REVERT LANG ===\"\nWP site switch-language en_US\nWP option update WPLANG \"\" --allow-root 2>$null\nWP option get WPLANG\n\nWrite-Host \"`n=== PHP LINT ===\"\n$fail=0; Get-ChildItem $theme -Recurse -Filter *.php | Where-Object { $_.FullName -notmatch '\\\\node_modules\\\\' } | ForEach-Object { $o = & $php -l $_.FullName 2>&1 | Out-String; if ($o -notmatch 'No syntax errors') { Write-Host $o; $fail++ } }\nWrite-Host \"PHP_LINT_FAILS=$fail\"\n\nWrite-Host \"`n=== NODE CHECK ===\"\nnode --check \"$theme\\assets\\js\\main.js\"; Write-Host \"main=$LASTEXITCODE\"\nnode --check \"$theme\\assets\\js\\account.js\"; Write-Host \"account=$LASTEXITCODE\"\n\nWrite-Host \"`n=== THEME.JSON ===\"\nGet-Content \"$theme\\theme.json\" -Raw | ConvertFrom-Json | Out-Null; Write-Host \"theme.json OK\"\n\nWrite-Host \"`n=== CSS BRACES ===\"\nfunction Brace-Check($f){ $t=Get-Content $f -Raw; $o=([regex]::Matches($t,'\\{')).Count; $c=([regex]::Matches($t,'\\}')).Count; Write-Host \"$([IO.Path]::GetFileName($f)) open=$o close=$c\" }\nBrace-Check \"$theme\\style.css\"; Brace-Check \"$theme\\assets\\css\\listings.css\"; Brace-Check \"$theme\\assets\\css\\account.css\"; Brace-Check \"$theme\\assets\\css\\fonts.css\"; Brace-Check \"$theme\\rtl.css\"\n\nWrite-Host \"`n=== GOOGLE FONTS ===\"\nSelect-String -Path \"$theme\\*\" -Pattern \"fonts.google|googleapis.com/css\" -Include *.css,*.php,*.js,*.json | Select-Object -First 5\n"
+title: "RTL locale switch, lint, JSON, CSS braces"
+status: succeeded
+started_at: 2026-09-18T15:36:40.238Z
+running_for_ms: 92619    
+---
+=== RTL SWITCH ===
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿Success: Language activated.
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿ar
+HTML_LANG= <html dir="rtl" lang="ar">
+DIR_RTL=True
+PRICE_LBL_ORDER:
+minIdx=49357 maxIdx=49593 minBeforeMax=True
+HAS_DASHBOARD=True
+
+=== REVERT LANG ===
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿Success: Language activated.
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿Success: Value passed for 'WPLANG' option is unchanged.
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+﻿
+
+=== PHP LINT ===
+PHP_LINT_FAILS=0
+
+=== NODE CHECK ===
+main=0
+account=0
+
+=== THEME.JSON ===
+theme.json OK
+
+=== CSS BRACES ===
+style.css open=625 close=625
+listings.css open=176 close=176
+account.css open=90 close=90
+fonts.css open=7 close=7
+rtl.css open=8 close=8
+
+=== GOOGLE FONTS ===
+
+---
+exit_code: 0
+elapsed_ms: 92618
+ended_at: 2026-09-18T15:38:12.856Z
+---

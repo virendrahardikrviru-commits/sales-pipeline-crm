@@ -1,0 +1,87 @@
+{
+  "name": "subscribe_github_pr",
+  "description": "Subscribe this conversation to future GitHub pull request events. Not delivered: PR lifecycle events that echo this agent's OWN actions — Cursor-actored events on this agent's own working branch (its own pushes/synchronize, PR-body edits, closes) — and metadata-only churn (edited titles/bodies, labels, milestones, assignments, merge-queue and auto-merge toggles). Always delivered: all comments, reviews, and review comments — including Bugbot and Agentic Security Review activity, which shares the cursor[bot] identity — plus lifecycle events actored by humans or on any other branch. After subscribing, state what you are waiting for and end your turn; the event arrives as a follow-up notification in this conversation.",
+  "arguments": {
+    "type": "object",
+    "properties": {
+      "options": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "pr"
+              },
+              "prUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "scope",
+              "prUrl"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "pr"
+              },
+              "repo": {
+                "type": "string"
+              },
+              "pullNumber": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "scope",
+              "repo",
+              "pullNumber"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "repo"
+              },
+              "repo": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "scope",
+              "repo"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "author"
+              },
+              "author": {
+                "type": "string"
+              },
+              "repo": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "scope",
+              "author",
+              "repo"
+            ]
+          }
+        ]
+      },
+      "expiresInSeconds": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "options"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+---
+pid: 34836
+cwd: "C:\\Projects\\listingcore_theme"
+command: "$php = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\php.exe\"\n$ext = \"C:\\Users\\ACER\\AppData\\Roaming\\Local\\lightning-services\\php-8.2.29+0\\bin\\win64\\ext\"\n$wp = \"C:\\Users\\ACER\\Downloads\\wp-cli.phar\"\n$public = \"C:\\Users\\ACER\\Local Sites\\listingcore\\app\\public\"\n$phpArgs = @(\"-d\",\"extension_dir=$ext\",\"-d\",\"extension=php_mysqli.dll\",\"-d\",\"extension=php_curl.dll\",\"-d\",\"extension=php_mbstring.dll\",\"-d\",\"extension=php_openssl.dll\",\"-d\",\"extension=php_fileinfo.dll\",\"-d\",\"extension=php_gd.dll\")\nfunction WP { param([Parameter(ValueFromRemainingArguments=$true)]$c) & $php @phpArgs $wp @c --path=$public }\n\nWrite-Host \"=== HTTP ===\"\ntry { $r = Invoke-WebRequest \"http://127.0.0.1:10004/\" -UseBasicParsing -TimeoutSec 15; \"home $($r.StatusCode) len=$($r.RawContentLength)\" } catch { \"HOME FAIL $($_.Exception.Message)\" }\n\nWrite-Host \"`n=== WP ===\"\nWP core version\nWP option get siteurl\nWP option get home\nWrite-Host \"`n=== THEME ===\"\nWP theme list\nWrite-Host \"`n=== PLUGINS ===\"\nWP plugin list\nWrite-Host \"`n=== PHP ===\"\n& $php -v | Select-Object -First 1\nWrite-Host \"`n=== USERS ===\"\nWP user list --fields=ID,user_login,roles,user_email --format=table\nWrite-Host \"`n=== LISTINGS ===\"\nWP post list --post_type=listing --fields=ID,post_title,post_status,post_author,post_name --format=csv"
+title: "Verify WordPress runtime, theme, plugins"
+status: failed   
+started_at: 2026-09-18T14:42:00.322Z
+running_for_ms: 509392   
+---
+=== HTTP ===
+home 200 len=56528
+
+=== WP ===
+7.1.1
+﻿http://127.0.0.1:10004
+﻿http://127.0.0.1:10004
+
+=== THEME ===
+﻿name	status	update	version	update_version	auto_update
+listingcore-theme	active	none	1.0.0		off
+twentytwentyfive	inactive	none	1.5		off
+twentytwentyfour	inactive	none	1.6		off
+twentytwentythree	inactive	none	1.7		off
+
+=== PLUGINS ===
+﻿name	status	update	version	update_version	auto_update
+elementor	active	none	4.2.4		off
+listingcore	active	none	1.0.1		off
+theme-check	active	none	20260901		off
+woocommerce	active	none	11.1.0		off
+zz-debug-metaboxes	must-use				off
+
+=== PHP ===
+PHP 8.2.29 (cli) (built: Jul  1 2025 20:19:51) (NTS Visual C++ 2019 x64)
+
+=== USERS ===
+﻿Error: Too many positional arguments: user_login roles user_email
+
+=== LISTINGS ===
+﻿Error: Too many positional arguments: post_title post_status post_author post_name
+
+---
+exit_code: 1
+elapsed_ms: 509391
+ended_at: 2026-09-18T14:50:29.713Z
+---
